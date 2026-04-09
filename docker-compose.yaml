@@ -1,0 +1,13 @@
+services:
+  counter-bot:
+    tty: true
+    stdin_open: true
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: counter-bot
+    env_file:
+      - .env
+    restart: always
+    volumes:
+      - ./src:/app
