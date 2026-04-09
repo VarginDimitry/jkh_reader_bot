@@ -1,0 +1,25 @@
+[project]
+name = "counter"
+version = "0.1.0"
+description = "Add your description here"
+readme = "README.md"
+requires-python = ">=3.11"
+dependencies = [
+    "aiofiles>=25.1.0",
+    "aiogram>=3.27.0",
+    "dishka>=1.9.1",
+    "pydantic>=2.12.5",
+    "pydantic-settings>=2.13.1",
+    "pillow>=10.0.0",
+    "fastapi>=0.135.3",
+    "google-genai>=1.71.0",
+]
+
+[project.optional-dependencies]
+torch = [
+    "torch>=2.11.0",
+    "torchvision>=0.20.0",
+    "accelerate>=1.0.0",
+    "transformers>=5.5.0",
+]
+
