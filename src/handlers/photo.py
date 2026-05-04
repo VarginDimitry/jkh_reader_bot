@@ -43,7 +43,11 @@ async def handle_photo_message(
         logger.info(f"Photo downloaded to {f.name}")
         result, meta = await table_processor_service.process_table(f.name)
         logger.info(f"Result ({meta=}):\n{result}")
+        if result is None:
+            await message.answer("Failed to process table")
+            return
         await message.answer(
             get_sum_message(result)
             + f"\nModel: {meta['model_name']} (level: {meta['level']})",
         )
+

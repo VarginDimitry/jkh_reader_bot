@@ -20,6 +20,8 @@ _GENERATE_TABLE_CONFIG = GenerateContentConfig(
 class GeminiTableProcessorService(BaseTableProcessorService):
     GEMINI_MODELS_GENERATING: tuple[str, ...] = (
         # "gemini-3-pro-image",
+        "gemini-3-flash-preview",
+        "gemini-3.1-flash-lite-preview"
         "gemini-2.5-flash-image",
         "gemini-2.5-pro",
         "gemini-2.5-flash",
@@ -36,9 +38,11 @@ class GeminiTableProcessorService(BaseTableProcessorService):
         self._logger = logger
         self._gpt = gpt
 
-    async def process_table(self, img_path: str) -> tuple[UtilityBillTable, dict]:
+    async def process_table(self, img_path: str) -> tuple[UtilityBillTable, dict] | tuple[None, None]:
         self._logger.info(f"Processing table from {img_path}")
         model_result, model_info = await self._feed_model(img_path)
+        if model_result is None:
+            return None, None
         self._logger.info(f"Model result ({model_info=}):\n{model_result}")
         return self._parse_model_result(model_result), {
             "model_name": model_info[0],
